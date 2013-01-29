@@ -1,7 +1,7 @@
 BUILDDIR := build
 SRCDIR := src
 
-all: builddir release
+all: release
 
 debug: builddir
 	cd $(BUILDDIR); \

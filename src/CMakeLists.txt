@@ -2,8 +2,25 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(grapheine CXX)
 
-INCLUDE_DIRECTORIES(include lib)
-ADD_DEFINITIONS(-g -O2 -fsigned-char -freg-struct-return -Wall -W -Wshadow -Wpointer-arith -Wcast-qual -Winline -Werror)
+
+FIND_PACKAGE( Boost COMPONENTS program_options REQUIRED)
+
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR}
+	include lib)
+
+# Set a default build type for single-configuration
+# CMake generators if no build type is set.
+IF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+	SET(CMAKE_BUILD_TYPE RELEASE)
+ENDIF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+
+
+	
+SET( CMAKE_CXX_FLAGS "-Wall -W -Wshadow -Wpointer-arith -Wcast-qual -Winline -Werror")
+	
+SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -g")
+SET(CMAKE_CXX_FLAGS_DEBUG  "-O0 -g")
+
 
 ADD_SUBDIRECTORY(lib)
 ADD_SUBDIRECTORY(tools)
